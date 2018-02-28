@@ -1,0 +1,88 @@
+﻿{
+  "ReRoutes": [
+    {
+      "Key": "Customers",
+      "DownstreamPathTemplate": "/api/customers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "UpstreamPathTemplate": "/customers",
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Token",
+        "AllowedScopes": []
+      },
+      "FileCacheOptions": { "TtlSeconds": 15 },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5,
+        "TimeoutValue": 5000
+      },
+      "HttpHandlerOptions": {
+        "UseTracing": true
+      }
+    },
+    {
+      "Key": "Customer",
+      "DownstreamPathTemplate": "/api/customers/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "UpstreamPathTemplate": "/customers/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": { "TtlSeconds": 15 },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5,
+        "TimeoutValue": 5000
+      },
+      "HttpHandlerOptions": {
+        "UseTracing": true
+      }
+    },
+    {
+      "Key": "Products",
+      "DownstreamPathTemplate": "/api/products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "UpstreamPathTemplate": "/products",
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": { "TtlSeconds": 15 },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5,
+        "TimeoutValue": 5000
+      },
+      "HttpHandlerOptions": {
+        "UseTracing": true
+      }
+    }
+  ],
+  "Aggregates": [
+    {
+      "ReRouteKeys": [
+        "Products",
+        "Customers"
+      ],
+      "UpstreamPathTemplate": "/custprod"
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "",
+    "AdministrationPath": null,
+    "BaseUrl": "http://localhost:9000"
+  }
+}

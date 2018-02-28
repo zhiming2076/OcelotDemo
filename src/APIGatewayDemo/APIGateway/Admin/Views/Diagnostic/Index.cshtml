@@ -1,0 +1,19 @@
+﻿<h2>Diagnostic</h2>
+
+<ul id="reports"></ul>
+
+<script>
+    $(function () {
+
+        let hubUrl = 'http://localhost:9000/wapDiagnosticHub';
+        let httpConnection = new signalR.HttpConnection(hubUrl);
+        let hubConnection = new signalR.HubConnection(httpConnection);
+
+        hubConnection.on('OnSendDiagnostics', data => {
+            $('#reports').append($('<li>').text(data));
+        });
+
+        hubConnection.start();
+
+    });
+</script>

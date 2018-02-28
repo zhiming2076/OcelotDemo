@@ -1,0 +1,22 @@
+﻿@using Ocelot.Configuration.File
+@using APIGateway.Admin;
+@model FileConfiguration
+
+<div class="row">
+    <div class="col-md-3 col-vertical-offset-2">
+        <a asp-action="CreateReRoute">Create</a>
+    </div>
+    <div class="col-md-9">
+        <h2>ReRoutes</h2>
+        <ul>
+            @foreach (var route in Model.ReRoutes)
+            {
+                <li>
+                    <a asp-action="EditReRoute" asp-route-id="@route.GetId()">
+                        @($"{route.DownstreamScheme}://{route.DownstreamHostAndPorts[0].Host}:{route.DownstreamHostAndPorts[0].Port}{route.DownstreamPathTemplate}")  <== @($"http://localhost:9000{route.UpstreamPathTemplate}")
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
